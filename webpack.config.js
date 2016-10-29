@@ -5,12 +5,17 @@ module.exports = {
   entry: './frontend/index.jsx',
   output: {
     path: path.join(__dirname, 'app', 'assets', 'javascripts'),
-    filename: 'bundle.js'
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
+      }
+    ],
     loaders: [
       {
         test: /\.jsx?$/,
@@ -22,5 +27,12 @@ module.exports = {
       }
     ]
   },
-  devtool: 'source-maps'
+  devtool: 'source-maps',
+  jshint: {
+    esversion: 6
+  },
+  resolve: {
+    root: __dirname,
+    extensions: ['', '.js', '.jsx']
+  }
 };
